@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dummyserver-deployment
+  labels:
+    app: dummyserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dummyserver
+  template:
+    metadata:
+      labels:
+        app: dummyserver
+    spec:
+      containers:
+        - name: dummyserver
+          image: shadrus/dummyserver:v0.1.0
+          ports:
+            - containerPort: 8080
+...
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummyserver-service
+spec:
+  selector:
+    app: dummyserver
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+...
