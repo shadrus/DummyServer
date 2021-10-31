@@ -18,7 +18,7 @@ func createKeyValuePairs(m map[string][]string) string {
 	return b.String()
 }
 
-func StartServer() {
+func StartServer(port string) {
 	router := httprouter.New()
 	router.GET("/*path", requestFunc)
 	router.POST("/*path", requestFunc)
@@ -27,17 +27,18 @@ func StartServer() {
 	router.HEAD("/*path", requestFunc)
 	router.PATCH("/*path", requestFunc)
 	router.OPTIONS("/*path", requestFunc)
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), router))
 }
 
 func requestFunc(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	buf := new(strings.Builder)
 	io.Copy(buf, request.Body)
 	log.
-		WithFields(log.Fields{"params": params.ByName("path")}).
+		WithFields(log.Fields{"Path": params.ByName("path")}).
 		WithFields(log.Fields{"Headers": createKeyValuePairs(request.Header)}).
-		WithFields(log.Fields{"body": buf}).
-		WithFields(log.Fields{"method": request.Method}).
+		WithFields(log.Fields{"Body": buf}).
+		WithFields(log.Fields{"Method": request.Method}).
+		WithFields(log.Fields{"RemoteAddr": request.RemoteAddr}).
 		Info("Got request")
 	writer.WriteHeader(200)
 }
