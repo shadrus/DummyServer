@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dummyserver
-          image: shadrus/dummyserver:v0.1.0
+          image: shadrus/dummyserver:latest
           ports:
             - containerPort: 8080
 ...
