@@ -17,7 +17,7 @@ docker run -p 8080:8080 shadrus/dummyserver:latest
 
 Can also be deployed to Kubernetes:
 
-kubectl apply -f https://github.com/shadrus/DummyServer/blob/main/deployments/dummyserver.yaml
+kubectl apply -f [https://github.com/shadrus/DummyServer/blob/main/deployments/dummyserver.yaml](https://raw.githubusercontent.com/shadrus/DummyServer/main/deployments/dummyserver.yaml)
 
 ### Configuration
 Can be configured by optional environment variables:
