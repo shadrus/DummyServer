@@ -35,6 +35,7 @@ func requestFunc(writer http.ResponseWriter, request *http.Request, params httpr
 	io.Copy(buf, request.Body)
 	log.
 		WithFields(log.Fields{"Path": params.ByName("path")}).
+		WithFields(log.Fields{"URI": request.RequestURI}).
 		WithFields(log.Fields{"Headers": createKeyValuePairs(request.Header)}).
 		WithFields(log.Fields{"Body": buf}).
 		WithFields(log.Fields{"Method": request.Method}).
